@@ -1,0 +1,12 @@
+# Potongan konfigurasi MCP untuk Hermes Agent.
+# install.sh menggabungkan blok ini ke ~/.hermes/config.yaml (tanpa menimpa server lain).
+
+mcp_servers:
+  # Descript — server MCP resmi yang di-host Descript.
+  # Autentikasi OAuth (tanpa API token): saat koneksi pertama browser terbuka,
+  # login ke Descript lalu pilih Drive yang boleh diakses agent.
+  # Token disimpan di ~/.hermes/mcp-tokens/descript.json dan di-refresh otomatis.
+  descript:
+    url: "https://api.descript.com/v2/mcp"
+    auth: oauth
+    timeout: 180
