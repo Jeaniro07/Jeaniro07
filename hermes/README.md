@@ -23,7 +23,22 @@ Mind). Agent eksternal berbicara dengan Mind lewat Messaging API memakai Builder
 CreateConversation, ListConversations, GetConversation, SendMessage, GetMessageHistory,
 SubscribeEvents (SSE).
 
-## Pemasangan
+## Pemasangan satu perintah
+
+```bash
+HELLOMINDS_ACCESS_KEY="isi-key-anda" \
+HELLOMINDS_API_BASE="https://isi-base-url-dari-docs-builder" \
+HELLOMINDS_MIND_ID="id-mind-anda" \
+INSTALL_HERMES=1 \
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Jeaniro07/Jeaniro07/claude/elegant-rubin-wg1bba/hermes/bootstrap.sh)"
+```
+
+`bootstrap.sh` memeriksa prasyarat, memasang Hermes jika `INSTALL_HERMES=1`, meng-clone paket ke
+`~/.hermes/bundles/jeaniro07`, menjalankan `install.sh`, menyimpan kredensial ke `~/.hermes/.env`
+(chmod 600), lalu memverifikasi skill, server MCP, dan koneksi HelloMinds. Semua variabel opsional;
+jalankan ulang kapan saja untuk update.
+
+## Pemasangan manual
 
 ```bash
 cd hermes
