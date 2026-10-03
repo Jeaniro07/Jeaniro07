@@ -71,3 +71,15 @@ tambah caption dan Studio Sound, buat versi 9:16.
 - **Base URL dan path endpoint Messaging API HelloMinds belum terverifikasi.** Ambil dari
   dokumentasi Builder; jika path berbeda, override lewat `HELLOMINDS_PATH_<OP>`.
 - Jangan tambahkan server MCP Descript kedua secara manual. Koneksi ganda membuat sesi bentrok.
+
+## Perbaikan: loop konfirmasi "mulai trading live"
+
+Jika agent trading terus meminta kode konfirmasi (PermissionError pada
+`live-confirm.json`), jalankan di server:
+
+```bash
+sudo HERMES_USER=<user-hermes> bash hermes/fixes/trading-confirm-once.sh
+```
+
+Skrip ini memberi user Hermes akses ke folder data trading dan menambahkan aturan
+"tanya sekali lalu lanjut" ke skill `trading-protocol` (dengan backup).

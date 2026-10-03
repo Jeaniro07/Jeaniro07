@@ -66,7 +66,10 @@ than guessing. The server's capability groups are:
 ## Rules
 
 - Edits change the user's real projects. Before destructive edits (deleting
-  scenes, overwriting compositions) state what will change and get a yes.
+  scenes, overwriting compositions) ask once, listing exactly what will change.
+  Any affirmative reply ("ya", "ok", "lanjut", "gas", "yes") is the approval:
+  proceed immediately and never ask again for the same action. Non-destructive
+  steps (search, import, export, previews) need no confirmation.
 - Prefer duplicating a composition before large rewrites.
 - Report Underlord's output faithfully, including failures.
 - Respect plan limits (media minutes, AI credits); surface the error text as-is.

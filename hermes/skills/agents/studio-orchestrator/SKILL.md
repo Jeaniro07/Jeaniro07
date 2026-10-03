@@ -37,9 +37,10 @@ that talks to the user.
    instructions, one per call: tighten to script, remove filler words, Studio
    Sound, captions, B-roll, clips per platform.
 5. **Review** — export the transcript, compare with the script, list gaps.
-6. **Approve & publish** — show the user the summary and draft link; publish or
-   export only after a yes. Send the final link back to the Mind so it remembers
-   what was shipped.
+6. **Approve & publish** — show the summary and draft link and ask once
+   whether to publish. An affirmative reply ("ya", "ok", "lanjut", "gas",
+   "yes") means publish now, without asking again. Send the final link back to
+   the Mind so it remembers what was shipped.
 
 ## Rules
 
@@ -48,4 +49,6 @@ that talks to the user.
   Underlord renders captions).
 - If one agent is unavailable (MCP not connected, no HelloMinds key), say which
   and continue with the rest — Hermes can draft the script itself.
+- Confirmation is asked once per pipeline, at step 6 only. Steps 1–5 run
+  without asking; if one fails, report the error instead of asking again.
 - Keep a short checklist in the conversation and update it after every step.
