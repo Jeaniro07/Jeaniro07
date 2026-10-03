@@ -1,0 +1,54 @@
+# Registry layanan homelab untuk skill homelab-services.
+# Lokasi: ~/.hermes/homelab/services.yaml
+# Rahasia TIDAK ditulis di sini, hanya NAMA variabelnya. Nilainya di ~/.hermes/.env
+# Ganti IP/port sesuai container Proxmox Anda. Cek dengan:
+#   python3 ~/.hermes/skills/homelab/homelab-services/scripts/homelab.py check
+
+services:
+  proxmox:
+    type: proxmox
+    url: https://192.168.1.10:8006
+    token_env: PVE_TOKEN            # .env: PVE_TOKEN=root@pam!hermes=xxxxxxxx-xxxx-...
+    verify_tls: false               # Proxmox memakai sertifikat self-signed
+
+  homeassistant:
+    type: homeassistant
+    url: http://192.168.1.20:8123
+    token_env: HA_TOKEN             # Profil HA > Security > Long-lived access token
+
+  jellyfin:
+    type: jellyfin
+    url: http://192.168.1.21:8096
+    token_env: JELLYFIN_API_KEY     # Dashboard > API Keys
+
+  couchdb:
+    type: couchdb
+    url: http://192.168.1.22:5984
+    user_env: COUCHDB_USER
+    password_env: COUCHDB_PASSWORD
+
+  postiz:
+    type: postiz
+    url: http://192.168.1.23:5000
+    api_base: /api/public/v1        # sesuaikan dengan versi Postiz Anda
+    token_env: POSTIZ_API_KEY       # Settings > Public API
+
+  adguard:
+    type: adguard
+    url: http://192.168.1.2:3000     # port panel admin AdGuard Home (sering 80 atau 3000)
+    user_env: ADGUARD_USER
+    password_env: ADGUARD_PASSWORD
+
+  # Contoh layanan lain (hapus tanda # untuk mengaktifkan):
+  # portainer:
+  #   type: portainer
+  #   url: https://192.168.1.24:9443
+  #   token_env: PORTAINER_TOKEN
+  #   verify_tls: false
+  # apa-saja:
+  #   type: generic
+  #   url: http://192.168.1.30:8080
+  #   header_name: Authorization
+  #   token_prefix: "Bearer "
+  #   token_env: APP_TOKEN
+  #   health: /health

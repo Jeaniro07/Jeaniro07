@@ -83,3 +83,37 @@ sudo HERMES_USER=<user-hermes> bash hermes/fixes/trading-confirm-once.sh
 
 Skrip ini memberi user Hermes akses ke folder data trading dan menambahkan aturan
 "tanya sekali lalu lanjut" ke skill `trading-protocol` (dengan backup).
+
+## hermes-doctor: perbaiki masalah umum Hermes sekaligus
+
+Untuk agent yang berputar-putar (tanya konfirmasi terus), tidak memakai tools/MCP/skill/coding
+agent, atau tidak bisa memakai layanan homelab (Postiz, CouchDB, Home Assistant, Jellyfin,
+AdGuard, Proxmox, ...).
+
+```bash
+# 1) Diagnosa saja (tidak mengubah apa pun)
+curl -fsSL https://raw.githubusercontent.com/Jeaniro07/Jeaniro07/claude/elegant-rubin-wg1bba/hermes/doctor/hermes-doctor.sh | sudo bash -s
+
+# 2) Perbaiki + restart gateway
+curl -fsSL https://raw.githubusercontent.com/Jeaniro07/Jeaniro07/claude/elegant-rubin-wg1bba/hermes/doctor/hermes-doctor.sh | sudo bash -s -- --fix --restart
+```
+
+Yang diperiksa/diperbaiki di setiap home Hermes (`~/.hermes`, `profiles/*`, `/opt/hermes-team/agents/*`):
+
+| Masalah | Diperbaiki otomatis |
+|---|---|
+| config.yaml/.env diedit dari Windows (CRLF, BOM, TAB) | ✓ |
+| `.env` duplikat, spasi di sekitar `=`, permission terbuka | ✓ |
+| `${VAR}` di config yang tidak ada di `.env` | dilaporkan |
+| approvals `manual` (setiap perintah ditanya) | ✓ → `smart` |
+| toolset Telegram tanpa `terminal` (skill tidak bisa jalan) | ✓ |
+| server MCP tidak terjangkau / perintah tidak ada | dilaporkan + petunjuk |
+| skill dengan frontmatter rusak (tidak dimuat) | dilaporkan |
+| file milik root di home agent (PermissionError) | ✓ (dengan sudo) |
+| aturan anti-loop, wajib pakai tools, kontrak serah-terima JEV | ✓ ditambahkan ke SOUL.md |
+| skill `homelab-services` dan `coding-delegate` | ✓ dipasang |
+| registry layanan homelab + cek token/jaringan tiap layanan | ✓ dibuat + dicek |
+| model combo: apakah benar memanggil tool & langsung jalan setelah "ya" | diuji langsung |
+
+Backup setiap file yang diubah ada di `<home>/backups/doctor-<waktu>/`, laporan lengkap
+di `<home>/logs/doctor-<waktu>.md`.

@@ -15,9 +15,11 @@ for dir in "$HERE"/skills/*/*/; do
   rel="${rel%/}"
   mkdir -p "$HERMES_HOME/skills/$rel"
   cp -R "$dir". "$HERMES_HOME/skills/$rel/"
+  # Ganti $SKILL_DIR dengan path absolut agar agent langsung bisa menjalankan script-nya.
+  sed -i "s|\$SKILL_DIR|$HERMES_HOME/skills/$rel|g" "$HERMES_HOME/skills/$rel/SKILL.md"
   echo "    + $rel"
 done
-chmod +x "$HERMES_HOME/skills/agents/hellominds-mind/scripts/hellominds.py"
+find "$HERMES_HOME/skills" -path '*/scripts/*' \( -name '*.py' -o -name '*.sh' \) -exec chmod +x {} +
 
 echo "==> Menggabungkan server MCP ke $CONFIG"
 [ -f "$CONFIG" ] && cp "$CONFIG" "$CONFIG.bak.$(date +%s)"
